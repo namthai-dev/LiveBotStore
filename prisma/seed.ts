@@ -7,19 +7,19 @@ dotenv.config({ path: '.env' });
 
 const prisma = new PrismaClient();
 
-const prettyPrint = (object: object) =>
-    console.log(JSON.stringify(object, undefined, 2));
+// const prettyPrint = (object: object) =>
+//     console.log(JSON.stringify(object, undefined, 2));
 
 async function seed() {
-    const user = await prisma.userProfile.create({
-        data: {
-            email: 'nam.thai.dev@outlook.com',
-            name: 'Nam Thai',
-        },
-    });
+    // const user = await prisma.userProfile.create({
+    //     data: {
+    //         email: 'nam.thai.dev@outlook.com',
+    //         name: 'Nam Thai',
+    //     },
+    // });
 
     console.log('========= result of seed: =========');
-    prettyPrint({ user });
+    // prettyPrint({ user });
 }
 
 seed()

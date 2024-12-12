@@ -1,16 +1,25 @@
-// import { UserProfile } from '@prisma/client';
-
-// import prisma from '@/lib/prisma';
-
-// export async function retrieveUserProfileFromDatabaseByEmail(
-//     email: UserProfile['email'],
-// ) {
-//     return await prisma.userProfile.findUnique({ where: { email } });
-// }
-import prisma from '@/lib/prisma';
+import { PrismaClient } from "@prisma/client";
 import { enhance } from "@zenstackhq/runtime";
 import { stackServerApp } from "@/stack";
 
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["info", "error", "warn"]
+        : ["error"],
+  });
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
+/**
+ * Gets an enhanced PrismaClient for the current user
+ */
 export async function getUserDb() {
   const stackAuthUser = await stackServerApp.getUser();
   const currentTeam = stackAuthUser?.selectedTeam;
@@ -25,6 +34,9 @@ export async function getUserDb() {
         currentTeamId: stackAuthUser.selectedTeam?.id,
         currentTeamRole: perm ? "admin" : "member",
       }
-    : undefined; // anonymous
+    : undefined;
+
+  console.log("Creating enhanced PrismaClient:", user);
+
   return enhance(prisma, { user });
 }
