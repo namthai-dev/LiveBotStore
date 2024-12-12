@@ -1,15 +1,15 @@
-import { retrieveUserProfileFromDatabaseByEmail } from '@/features/user-profile/user-profile-model';
 import {
     Card,
     CardContent,
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { stackServerApp } from '@/stack';
 
 export default async function Dashboard() {
-    const user =
-        await retrieveUserProfileFromDatabaseByEmail('nam.thai.dev@outlook.com');
 
+        const user = await stackServerApp.getUser();
+        
     return (
         <Card className="max-w-md mx-auto">
             <CardHeader>
@@ -19,8 +19,8 @@ export default async function Dashboard() {
             <CardContent>
                 {user ? (
                     <ul>
-                        <li>Name: {user.name}</li>
-                        <li>Email: {user.email}</li>
+                        <li>Name: {user.displayName}</li>
+                        <li>Email: {user.primaryEmail}</li>
                     </ul>
                 ) : (
                     <p>User not found.</p>
