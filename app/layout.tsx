@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-
+import { Suspense } from 'react';
 import { Locale } from '@/features/internationalization/i18n-config';
-import { Provider } from '@/components/provider';
 import { stackServerApp } from '@/stack';
+
+import { Provider } from '@/components/provider';
+import { Toaster } from '@/components/ui/toaster';
+import { StoreModal } from '@/components/store-modal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +38,13 @@ export default async function RootLayout(
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider app={stackServerApp}>{children}</Provider>
+        <Provider app={stackServerApp}>
+          <Toaster />
+          <Suspense>
+            <StoreModal />
+          </Suspense>
+          {children}
+        </Provider>
       </body>
     </html>
   );

@@ -26,8 +26,10 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.9",
     "@prisma/client": "^6.0.1",
+    "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.2",
     "@stackframe/stack": "^2.6.34",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -38,7 +40,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
