@@ -4,7 +4,7 @@ import './globals.css';
 
 import { Locale } from '@/features/internationalization/i18n-config';
 import { Provider } from '@/components/provider';
-import { stackServerApp } from "@/stack";
+import { stackServerApp } from '@/stack';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,22 +24,18 @@ export default async function RootLayout(
   props: Readonly<{
     children: React.ReactNode;
     params: { lang: Locale };
-  }>
+  }>,
 ) {
   const params = await props.params;
 
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   return (
     <html lang={params.lang} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider app={stackServerApp}>
-          {children}
-        </Provider>
+        <Provider app={stackServerApp}>{children}</Provider>
       </body>
     </html>
   );

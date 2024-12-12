@@ -12,7 +12,7 @@ export function Counter({
   const [count, setCount] = useState(0);
 
   return (
-    <div className='flex flex-col items-center bg-red-100 w-fit m-auto p-2'>
+    <div className="m-auto flex w-fit flex-col items-center bg-red-100 p-2">
       This component is rendered on the client:
       <button onClick={() => setCount(n => n - 1)}>
         {dictionary.decrement}

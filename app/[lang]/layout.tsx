@@ -1,16 +1,18 @@
-import { stackServerApp } from "@/stack";
+import { stackServerApp } from '@/stack';
 
-import Header from "@/components/header";
+import Header from '@/components/header';
 
 export default async function MainLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    await stackServerApp.getUser({ or: "redirect" });
+  await stackServerApp.getUser({ or: 'redirect' });
 
-    return <div>
-        <Header />
-        {children}
+  return (
+    <div>
+      <Header />
+      {children}
     </div>
+  );
 }
