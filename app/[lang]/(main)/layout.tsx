@@ -1,6 +1,7 @@
 import { stackServerApp } from '@/stack';
 
 import Header from '@/components/header';
+import { Separator } from '@/components/ui/separator';
 
 export default async function MainLayout({
   children,
@@ -12,6 +13,7 @@ export default async function MainLayout({
   return (
     <div>
       <Header />
+      <Separator />
       {children}
     </div>
   );

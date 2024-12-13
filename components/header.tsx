@@ -1,21 +1,86 @@
+'use client';
+
 import React, { Suspense } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import { UserButton } from '@stackframe/stack';
 
 import ThemeSwitcher from './theme-switcher';
 import StoreSwitcher from './store-switcher';
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
 
 export default function Header() {
+  const params = useParams();
+
+  const routes = [
+    {
+      label: 'Overview',
+      href: `/${params.storeId}`,
+    },
+    {
+      label: 'Billboards',
+      href: `/${params.storeId}/billboards`,
+    },
+    {
+      label: 'Categories',
+      href: `/${params.storeId}/categories`,
+    },
+    {
+      label: 'Sizes',
+      href: `/${params.storeId}/sizes`,
+    },
+    {
+      label: 'Colors',
+      href: `/${params.storeId}/colors`,
+    },
+    {
+      label: 'Products',
+      href: `/${params.storeId}/products`,
+    },
+    {
+      label: 'Orders',
+      href: `/${params.storeId}/orders`,
+    },
+    {
+      label: 'AI chatbot',
+      href: `/${params.storeId}/chatbot`,
+    },
+  ];
+
   return (
     <header className="border-b px-8 py-4">
       <div className="flex justify-between">
-        <ul className="flex items-center gap-4">
-          <StoreSwitcher />
-          <Link href="/">Overview</Link>
-          <Link href="/product">Products</Link>
-          <Link href="/prder">Orders</Link>
-        </ul>
+        <div className="flex items-center gap-4">
+          <Suspense>
+            <StoreSwitcher />
+          </Suspense>
+          {routes.map((i, idx) => {
+            {
+              return (
+                <NavigationMenu key={idx}>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <Link href={i.href} legacyBehavior passHref>
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          {i.label}
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              );
+            }
+          })}
+        </div>
         <div className="flex gap-2">
           <Suspense>
             <ThemeSwitcher />
