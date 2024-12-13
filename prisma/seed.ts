@@ -13,7 +13,7 @@ const prettyPrint = (object: object) =>
 async function seed() {
   const store = await prisma.store.create({
     data: {
-      refId: 'random-id'
+      refId: 'random-id',
     },
   });
 
