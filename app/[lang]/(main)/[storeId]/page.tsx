@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { stackServerApp } from '@/stack';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function Dashboard() {
   const user = await stackServerApp.getUser();

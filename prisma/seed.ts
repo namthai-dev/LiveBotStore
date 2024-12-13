@@ -11,15 +11,14 @@ const prettyPrint = (object: object) =>
   console.log(JSON.stringify(object, undefined, 2));
 
 async function seed() {
-  const user = await prisma.userProfile.create({
+  const store = await prisma.store.create({
     data: {
-      email: 'nam.thai.dev@outlook.com',
-      name: 'Nam Thai',
+      refId: 'random-id'
     },
   });
 
   console.log('========= result of seed: =========');
-  prettyPrint({ user });
+  prettyPrint({ store });
 }
 
 seed()

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useUser } from '@stackframe/stack';
 import { useToast } from '@/hooks/use-toast';
 import { useStoreModal } from '@/hooks/use-store-modal';
+import { syncStore } from '@/features/store/store-model';
 
 import { Modal } from '@/components/modal';
 import { Input } from '@/components/ui/input';
@@ -44,6 +45,7 @@ export const StoreModal = () => {
       const response = await user?.createTeam({
         displayName: values.name,
       });
+      syncStore(response?.id ?? '');
       window.location.assign(`/${response?.id}`);
     } catch {
       toast({ title: 'Something went wrong', variant: 'destructive' });
