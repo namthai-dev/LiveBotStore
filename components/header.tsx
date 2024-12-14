@@ -2,7 +2,6 @@
 
 import React, { Suspense } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 import { UserButton } from '@stackframe/stack';
 
@@ -16,46 +15,44 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 
+const routes = [
+  {
+    label: 'Overview',
+    href: `/store`,
+  },
+  {
+    label: 'Billboards',
+    href: `/store/billboards`,
+  },
+  {
+    label: 'Categories',
+    href: `/store/categories`,
+  },
+  {
+    label: 'Sizes',
+    href: `/store/sizes`,
+  },
+  {
+    label: 'Colors',
+    href: `/store/colors`,
+  },
+  {
+    label: 'Products',
+    href: `/store/products`,
+  },
+  {
+    label: 'Orders',
+    href: `/store/orders`,
+  },
+  {
+    label: 'AI chatbot',
+    href: `/store/chatbot`,
+  },
+];
+
 export default function Header() {
-  const params = useParams();
-
-  const routes = [
-    {
-      label: 'Overview',
-      href: `/${params.storeId}`,
-    },
-    {
-      label: 'Billboards',
-      href: `/${params.storeId}/billboards`,
-    },
-    {
-      label: 'Categories',
-      href: `/${params.storeId}/categories`,
-    },
-    {
-      label: 'Sizes',
-      href: `/${params.storeId}/sizes`,
-    },
-    {
-      label: 'Colors',
-      href: `/${params.storeId}/colors`,
-    },
-    {
-      label: 'Products',
-      href: `/${params.storeId}/products`,
-    },
-    {
-      label: 'Orders',
-      href: `/${params.storeId}/orders`,
-    },
-    {
-      label: 'AI chatbot',
-      href: `/${params.storeId}/chatbot`,
-    },
-  ];
-
   return (
-    <header className="border-b px-8 py-4">
+    <header className="px-8 py-4">
       <div className="flex justify-between">
         <div className="flex items-center gap-4">
           <Suspense>

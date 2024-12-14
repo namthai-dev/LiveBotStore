@@ -46,7 +46,7 @@ export const StoreModal = () => {
         displayName: values.name,
       });
       syncStore(response?.id ?? '');
-      window.location.assign(`/${response?.id}`);
+      window.location.assign('/store');
     } catch {
       toast({ title: 'Something went wrong', variant: 'destructive' });
     } finally {
