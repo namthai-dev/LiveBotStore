@@ -22,5 +22,5 @@ export default async function SetupLayout({
     redirect('/store');
   }
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 }

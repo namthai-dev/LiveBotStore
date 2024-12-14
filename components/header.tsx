@@ -52,38 +52,36 @@ const routes = [
 
 export default function Header() {
   return (
-    <header className="px-8 py-4">
-      <div className="flex justify-between">
-        <div className="flex items-center gap-4">
-          <Suspense>
-            <StoreSwitcher />
-          </Suspense>
-          {routes.map((i, idx) => {
-            {
-              return (
-                <NavigationMenu key={idx}>
-                  <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <Link href={i.href} legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          {i.label}
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                  </NavigationMenuList>
-                </NavigationMenu>
-              );
-            }
-          })}
-        </div>
-        <div className="flex gap-2">
-          <Suspense>
-            <ThemeSwitcher />
-            <UserButton />
-          </Suspense>
-        </div>
+    <header className="flex justify-between px-8 py-4">
+      <div className="flex items-center gap-4">
+        <Suspense>
+          <StoreSwitcher />
+        </Suspense>
+        {routes.map((i, idx) => {
+          {
+            return (
+              <NavigationMenu key={idx}>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <Link href={i.href} legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        {i.label}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            );
+          }
+        })}
+      </div>
+      <div className="flex gap-2">
+        <Suspense>
+          <ThemeSwitcher />
+          <UserButton />
+        </Suspense>
       </div>
     </header>
   );
