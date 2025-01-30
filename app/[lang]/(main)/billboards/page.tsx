@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { billboard } from '@/features/billboard/api';
 import { useUser } from '@stackframe/stack';
@@ -12,16 +11,20 @@ import { Separator } from '@/components/ui/separator';
 import { DataTable } from '@/components/data-table';
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
+import { useBillboardModal } from '@/features/billboard/use-billboard-modal';
 
 export default function Page() {
   const user = useUser();
+  const { onOpen } = useBillboardModal();
   const teamId = user?.selectedTeam?.id || '';
 
   const { data: billboards } = useQuery(
     billboard.query.getStoreByRefId(teamId),
   );
-  // const { mutate } = useMutation(billboard.mutation.create());
 
+  const handleAdd = () => {
+    onOpen();
+  };
   if (billboards === undefined) {
     return null;
   }
@@ -33,7 +36,7 @@ export default function Page() {
           title={`Billboards (${billboards?.length})`}
           description="Mange billboards for your store"
         />
-        <Button>
+        <Button onClick={handleAdd}>
           <Plus /> Add new
         </Button>
       </div>

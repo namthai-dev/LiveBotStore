@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useStoreModal } from '@/hooks/use-store-modal';
+import { useStoreModal } from '@/features/store/use-store-modal';
 
 export default function Setup() {
   const store = useStoreModal();

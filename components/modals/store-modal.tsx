@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useUser } from '@stackframe/stack';
 import { useToast } from '@/hooks/use-toast';
-import { useStoreModal } from '@/hooks/use-store-modal';
+import { useStoreModal } from '@/features/store/use-store-modal';
 
 import { Modal } from '@/components/modal';
 import { Input } from '@/components/ui/input';
