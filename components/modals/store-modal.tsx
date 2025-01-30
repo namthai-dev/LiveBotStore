@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useUser } from '@stackframe/stack';
 import { useToast } from '@/hooks/use-toast';
-import { useStoreModal } from '@/features/store/use-store-modal';
+import { useStore } from '@/features/store/store';
 
 import { Modal } from '@/components/modal';
 import { Input } from '@/components/ui/input';
@@ -28,7 +28,7 @@ export const StoreModal = () => {
   const user = useUser();
   const { toast } = useToast();
 
-  const store = useStoreModal();
+  const store = useStore();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({

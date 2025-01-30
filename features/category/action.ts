@@ -1,15 +1,15 @@
 'use server';
 
 import { create, getAllByStoreId } from './db';
-import { CreateBillboardParams } from './type';
+import { CreateCategoryParams } from './type';
 import { getStoreByRefId } from '../store/db';
 
-export async function getBillboardsByStoreId(id: string) {
+export async function getCategoriesByStoreId(id: string) {
   const store = await getStoreByRefId(id);
   return await getAllByStoreId(store?.id || id);
 }
 
-export async function createBillboard(params: CreateBillboardParams) {
+export async function createCategory(params: CreateCategoryParams) {
   const store = await getStoreByRefId(params.storeId);
   return await create({
     ...params,

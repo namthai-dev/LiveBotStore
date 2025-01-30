@@ -10,6 +10,7 @@ export const query: Record<string, (params: any) => UseQueryOptions> = {
     },
   }),
 };
+
 export const mutation: Record<string, UseMutationOptions> = {};
 
 export const store = {

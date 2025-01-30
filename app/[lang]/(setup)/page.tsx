@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useStoreModal } from '@/features/store/use-store-modal';
+import { useStore } from '@/features/store/store';
 
 export default function Setup() {
-  const store = useStoreModal();
+  const store = useStore();
 
   useEffect(() => {
     if (!store.isOpen) {

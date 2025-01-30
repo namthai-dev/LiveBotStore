@@ -1,4 +1,3 @@
-import { Billboard } from '@prisma/client';
 import prisma from '@/lib/prisma';
 
 import { CreateBillboardParams } from './type';
@@ -8,7 +7,6 @@ export async function create({
   label,
   imageUrl,
 }: CreateBillboardParams) {
-  console.log(storeId, label, imageUrl);
   return await prisma.billboard.create({
     data: {
       label: label,
@@ -18,6 +16,6 @@ export async function create({
   });
 }
 
-export async function getAllByStoreId(id: Billboard['storeId']) {
+export async function getAllByStoreId(id: string) {
   return await prisma.billboard.findMany({ where: { storeId: id } });
 }

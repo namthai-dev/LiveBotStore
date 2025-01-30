@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@stackframe/stack';
 
-import { useBillboardModal } from '@/features/billboard/use-billboard-modal';
+import { useBillboard } from '@/features/billboard/store';
 import { billboard } from '@/features/billboard/api';
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
@@ -23,7 +23,7 @@ const formSchema = z.object({
 export default function BillboardModal() {
   const user = useUser();
   const { toast } = useToast();
-  const { isOpen, onClose } = useBillboardModal();
+  const { isOpen, onClose } = useBillboard();
   const { mutateAsync, status } = useMutation(billboard.mutation.create());
 
   const storeId = user?.selectedTeam?.id || '';

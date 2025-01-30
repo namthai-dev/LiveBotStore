@@ -11,11 +11,11 @@ import { Separator } from '@/components/ui/separator';
 import { DataTable } from '@/components/data-table';
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
-import { useBillboardModal } from '@/features/billboard/use-billboard-modal';
+import { useBillboard } from '@/features/billboard/store';
 
 export default function Page() {
   const user = useUser();
-  const { onOpen } = useBillboardModal();
+  const { onOpen } = useBillboard();
   const teamId = user?.selectedTeam?.id || '';
 
   const { data: billboards } = useQuery(
