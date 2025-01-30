@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { stackServerApp } from '@/stack';
-import { syncStore, getStoreByRefId } from '@/features/store/store-model';
+import { syncStore, getStoreByRefId } from '@/features/store/db';
 
 export default async function SetupLayout({
   children,
@@ -19,7 +19,7 @@ export default async function SetupLayout({
       }
     });
     user.setSelectedTeam(stores[0]);
-    redirect('/store');
+    redirect('/dashboard');
   }
 
   return <>{children}</>;

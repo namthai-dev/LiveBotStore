@@ -18,35 +18,35 @@ import {
 const routes = [
   {
     label: 'Overview',
-    href: `/store`,
+    href: `/dashboard`,
   },
   {
     label: 'Billboards',
-    href: `/store/billboards`,
+    href: `/billboards`,
   },
   {
     label: 'Categories',
-    href: `/store/categories`,
+    href: `/categories`,
   },
   {
     label: 'Sizes',
-    href: `/store/sizes`,
+    href: `/sizes`,
   },
   {
     label: 'Colors',
-    href: `/store/colors`,
+    href: `/colors`,
   },
   {
     label: 'Products',
-    href: `/store/products`,
+    href: `/products`,
   },
   {
     label: 'Orders',
-    href: `/store/orders`,
+    href: `/orders`,
   },
   {
     label: 'AI chatbot',
-    href: `/store/chatbot`,
+    href: `/chatbot`,
   },
 ];
 

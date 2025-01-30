@@ -11,7 +11,7 @@ export default async function MainLayout({
   await stackServerApp.getUser({ or: 'redirect' });
 
   return (
-    <div className='container mx-auto'>
+    <div className="container mx-auto">
       <Header />
       <Separator />
       {children}
