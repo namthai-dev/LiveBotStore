@@ -25,6 +25,7 @@ export default function Page() {
   const handleAdd = () => {
     onOpen();
   };
+
   if (billboards === undefined) {
     return null;
   }

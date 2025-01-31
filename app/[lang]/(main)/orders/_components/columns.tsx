@@ -2,9 +2,10 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export type ColumnType = {
   id: string;
-  label: string;
   storeId: string;
-  imageUrl: string;
+  isPaid: boolean;
+  phone: string;
+  address: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -15,7 +16,15 @@ export const columns: ColumnDef<ColumnType>[] = [
     header: 'Id',
   },
   {
-    accessorKey: 'label',
-    header: 'Label',
+    accessorKey: 'phone',
+    header: 'Phone',
+  },
+  {
+    accessorKey: 'address',
+    header: 'Address',
+  },
+  {
+    accessorKey: 'isPaid',
+    header: 'isPaid',
   },
 ];
