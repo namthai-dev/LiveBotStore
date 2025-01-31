@@ -6,7 +6,7 @@ import { CreateChatbotParams } from './type';
 export const chatbot = {
   query: {
     getStoreByRefId: (id: string): UseQueryOptions<Chatbot[], Error> => ({
-      queryKey: ['store', id],
+      queryKey: ['chatbot', id],
       queryFn: async () => {
         return await getChatbotsByStoreId(id);
       },

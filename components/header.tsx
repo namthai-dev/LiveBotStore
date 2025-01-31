@@ -48,6 +48,10 @@ const routes = [
     label: 'AI chatbot',
     href: `/chatbot`,
   },
+  {
+    label: 'Settings',
+    href: `/settings`,
+  },
 ];
 
 export default function Header() {
