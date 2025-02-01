@@ -6,13 +6,11 @@ import { CreateBillboardParams } from './type';
 export const billboard = {
   query: {
     getStoreByRefId: (id: string): UseQueryOptions<Billboard[], Error> => ({
-      queryKey: ['billboard', id],
+      queryKey: ['billboards', id],
       queryFn: async () => {
         return await getBillboardsByStoreId(id);
       },
       enabled: !!id,
-      gcTime: 0,
-      refetchInterval: 5000,
     }),
   },
 
