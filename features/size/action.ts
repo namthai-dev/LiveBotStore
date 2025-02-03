@@ -1,7 +1,7 @@
 'use server';
 
-import { create, getAllByStoreId } from './db';
-import { CreateSizeParams } from './type';
+import { create, getAllByStoreId, remove, update } from './db';
+import { CreateSizeParams, UpdateSizeParams } from './type';
 import { getStoreByRefId } from '../store/db';
 
 export async function getSizesByStoreId(id: string) {
@@ -15,4 +15,12 @@ export async function createSize(params: CreateSizeParams) {
     ...params,
     storeId: store?.id || params.storeId,
   });
+}
+
+export async function updateSize(params: UpdateSizeParams) {
+  return await update(params);
+}
+
+export async function removeSize(id: string) {
+  return await remove(id);
 }

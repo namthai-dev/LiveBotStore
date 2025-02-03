@@ -1,7 +1,7 @@
 'use server';
 
-import { create, getAllByStoreId } from './db';
-import { CreateColorParams } from './type';
+import { create, getAllByStoreId, remove, update } from './db';
+import { CreateColorParams, UpdateColorParams } from './type';
 import { getStoreByRefId } from '../store/db';
 
 export async function getColorsByStoreId(id: string) {
@@ -15,4 +15,12 @@ export async function createColor(params: CreateColorParams) {
     ...params,
     storeId: store?.id || params.storeId,
   });
+}
+
+export async function updateColor(params: UpdateColorParams) {
+  return await update(params);
+}
+
+export async function removeColor(id: string) {
+  return await remove(id);
 }

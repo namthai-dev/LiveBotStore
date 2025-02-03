@@ -3,3 +3,9 @@ export interface CreateSizeParams {
   name: string;
   value: string;
 }
+
+export interface UpdateSizeParams {
+  id: string;
+  name?: string;
+  value?: string;
+}

@@ -3,3 +3,9 @@ export interface CreateColorParams {
   name: string;
   value: string;
 }
+
+export interface UpdateColorParams {
+  id: string;
+  name?: string;
+  value?: string;
+}
