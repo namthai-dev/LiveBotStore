@@ -35,15 +35,25 @@ export default function BillboardModal() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const storeId = user?.selectedTeam?.id || '';
+
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ['billboards', storeId] });
-    toast({ title: 'New billboard created.', variant: 'default' });
+    toast({
+      title: isEditing ? 'Billboard edited' : 'New billboard created.',
+      variant: 'default',
+    });
     setIsSubmitting(false);
     handleClose();
   };
 
   const onError = () => {
-    toast({ title: 'Failed to create billboard.', variant: 'destructive' });
+    toast({
+      title: isEditing
+        ? 'Failed to edit billboard'
+        : 'Failed to create billboard.',
+      variant: 'destructive',
+    });
     setIsSubmitting(false);
   };
 
@@ -58,8 +68,6 @@ export default function BillboardModal() {
     onSuccess: onSuccess,
     onError: onError,
   });
-
-  const storeId = user?.selectedTeam?.id || '';
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

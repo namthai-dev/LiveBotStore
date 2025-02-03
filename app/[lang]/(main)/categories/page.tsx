@@ -3,7 +3,7 @@ import { useUser } from '@stackframe/stack';
 import { useQuery } from '@tanstack/react-query';
 
 import { useCategory } from '@/features/category/store';
-import { getCategoriesByStoreId } from '@/features/category/action';
+import { getCategoriesByStoreIdWithBillboard } from '@/features/category/action';
 
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
@@ -22,7 +22,7 @@ export default function Page() {
   const { data: categories } = useQuery({
     queryKey: ['categories', teamId],
     queryFn: async () => {
-      return await getCategoriesByStoreId(teamId);
+      return await getCategoriesByStoreIdWithBillboard(teamId);
     },
     enabled: !!teamId,
   });

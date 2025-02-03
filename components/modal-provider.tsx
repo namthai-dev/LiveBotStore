@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { StoreModal } from './modals/store-modal';
 import BillboardModal from './modals/billboard-modal';
+import CategoryModal from './modals/category-modal';
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -17,6 +18,7 @@ export const ModalProvider = () => {
     <>
       <StoreModal />
       <BillboardModal />
+      <CategoryModal />
     </>
   );
 };

@@ -30,3 +30,7 @@ export async function update({ id, label, imageUrl }: UpdateBillboardParams) {
     data: { label, imageUrl },
   });
 }
+
+export async function getBillboardById(id: string) {
+  return await prisma.billboard.findFirst({ where: { id } });
+}

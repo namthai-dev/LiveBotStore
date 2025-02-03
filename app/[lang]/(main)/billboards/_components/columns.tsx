@@ -23,8 +23,8 @@ export const columns: ColumnDef<ColumnType>[] = [
     accessorKey: 'imageUrl',
     header: 'Image',
     size: 50,
-    cell: ({ row }) => {
-      const imageUrl: string = row.getValue('imageUrl');
+    cell(props) {
+      const imageUrl: string = props.row.getValue('imageUrl');
       return (
         <Image src={imageUrl} width={100} height={40} alt="preview-image" />
       );

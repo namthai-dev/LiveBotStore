@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 
-import { CreateCategoryParams } from './type';
+import { CreateCategoryParams, UpdateCatergoryParams } from './type';
 
 export async function create({
   storeId,
@@ -18,4 +18,24 @@ export async function create({
 
 export async function getAllByStoreId(id: string) {
   return await prisma.category.findMany({ where: { storeId: id } });
+}
+
+export async function getAllByStoreIdWithBillboard(id: string) {
+  return await prisma.category.findMany({
+    where: { storeId: id },
+    include: {
+      billboard: { select: { label: true } },
+    },
+  });
+}
+
+export async function update({ id, billboardId, name }: UpdateCatergoryParams) {
+  return await prisma.category.update({
+    where: { id: id },
+    data: { billboardId, name },
+  });
+}
+
+export async function remove(id: string) {
+  return await prisma.category.delete({ where: { id } });
 }
