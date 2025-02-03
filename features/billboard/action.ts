@@ -1,7 +1,7 @@
 'use server';
 
-import { create, getAllByStoreId } from './db';
-import { CreateBillboardParams } from './type';
+import { create, getAllByStoreId, remove, update } from './db';
+import { CreateBillboardParams, UpdateBillboardParams } from './type';
 import { getStoreByRefId } from '../store/db';
 
 export async function getBillboardsByStoreId(id: string) {
@@ -15,4 +15,12 @@ export async function createBillboard(params: CreateBillboardParams) {
     ...params,
     storeId: store?.id || params.storeId,
   });
+}
+
+export async function removeBillboard(id: string) {
+  return await remove(id);
+}
+
+export async function updateBillboard(params: UpdateBillboardParams) {
+  return await update(params);
 }

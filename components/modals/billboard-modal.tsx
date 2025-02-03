@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +10,7 @@ import { useUser } from '@stackframe/stack';
 import { useEdgeStore } from '@/lib/edgestore';
 
 import { useBillboard } from '@/features/billboard/store';
-import { billboard } from '@/features/billboard/api';
+import { createBillboard, updateBillboard } from '@/features/billboard/action';
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
 import { Modal } from '../modal';
@@ -20,61 +20,96 @@ import { SingleImageDropzone } from '../single-image-dropzone';
 
 const formSchema = z.object({
   label: z.string().min(1),
-  imageUrl: z.custom<File>(val => val instanceof File, 'A file is required'),
+  imageUrl: z.union([
+    z.custom<File>(val => val instanceof File, 'A file is required'),
+    z.string().url(),
+  ]),
 });
 
 export default function BillboardModal() {
   const user = useUser();
-  const queryClient = useQueryClient();
   const { toast } = useToast();
-  const { isOpen, onClose } = useBillboard();
+  const queryClient = useQueryClient();
   const { edgestore } = useEdgeStore();
+  const { isOpen, isEditing, onClose, data } = useBillboard();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { mutateAsync, status } = useMutation(billboard.mutation.create());
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['billboards', storeId] });
+    toast({ title: 'New billboard created.', variant: 'default' });
+    setIsSubmitting(false);
+    handleClose();
+  };
+
+  const onError = () => {
+    toast({ title: 'Failed to create billboard.', variant: 'destructive' });
+    setIsSubmitting(false);
+  };
+
+  const { mutate: mutateUpdate } = useMutation({
+    mutationFn: updateBillboard,
+    onSuccess: onSuccess,
+    onError: onError,
+  });
+
+  const { mutate: mutateCreate } = useMutation({
+    mutationFn: createBillboard,
+    onSuccess: onSuccess,
+    onError: onError,
+  });
 
   const storeId = user?.selectedTeam?.id || '';
-  const loading = status === 'pending' || isSubmitting;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      label: '',
-      imageUrl: undefined,
+      label: data?.label ?? '',
+      imageUrl: data?.imageUrl ?? undefined,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleCreate = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
-    const imageUrl = await handleUpload(values.imageUrl);
+
+    const imageUrl = await handleUpload(values.imageUrl as File);
     if (!imageUrl) {
       toast({ title: 'Failed to upload image.', variant: 'destructive' });
       setIsSubmitting(false);
       return;
     }
 
-    mutateAsync({
+    mutateCreate({
       label: values.label,
       imageUrl: imageUrl,
       storeId: storeId,
-    })
-      .then(() => {
-        queryClient.invalidateQueries({ queryKey: ['billboards', storeId] });
-        toast({ title: 'New billboard created.', variant: 'default' });
-      })
-      .catch(() => {
-        toast({ title: 'Failed to create billboard.', variant: 'destructive' });
-      })
-      .finally(() => {
+    });
+  };
+
+  const handleUpdate = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+
+    let imageUrl;
+
+    if (values.imageUrl instanceof File) {
+      imageUrl = await handleReplace(values.imageUrl);
+      if (!imageUrl) {
+        toast({ title: 'Failed to replace image.', variant: 'destructive' });
         setIsSubmitting(false);
-        handleClose();
-      });
+        return;
+      }
+    }
+
+    mutateUpdate({
+      label: values.label,
+      imageUrl: imageUrl,
+      id: data?.id ?? '',
+    });
   };
 
   const handleClose = () => {
-    setIsSubmitting(false);
-    form.reset();
     onClose();
+    form.reset();
   };
 
   const handleUpload = async (file: File | undefined) => {
@@ -86,16 +121,33 @@ export default function BillboardModal() {
     }
   };
 
+  const handleReplace = async (file: File | undefined) => {
+    if (file) {
+      const res = await edgestore.publicFiles.upload({
+        file,
+        options: {
+          replaceTargetUrl: data?.imageUrl,
+        },
+      });
+      return res.url;
+    }
+  };
+
+  useEffect(() => {
+    form.setValue('label', data?.label ?? '');
+    form.setValue('imageUrl', data?.imageUrl ?? '');
+  }, [data]);
+
   return (
     <Modal
-      title="Create new billboard"
+      title={isEditing ? 'Edit your billboard' : 'Create new billboard'}
       description=""
       isOpen={isOpen}
       onClose={handleClose}
     >
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(isEditing ? handleUpdate : handleCreate)}
           className="space-y-4 pb-4 pt-2"
         >
           <FormField
@@ -105,7 +157,11 @@ export default function BillboardModal() {
               <FormItem>
                 <FormLabel>Label</FormLabel>
                 <FormControl>
-                  <Input placeholder="Label name" {...field} />
+                  <Input
+                    placeholder="Label name"
+                    {...field}
+                    value={field.value}
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -122,17 +178,22 @@ export default function BillboardModal() {
                     width={450}
                     value={field.value}
                     disabled={isSubmitting}
-                    onChange={file => field.onChange(file)}
+                    onChange={field.onChange}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
           <div className="flex items-center justify-end space-x-2 pt-6">
-            <Button disabled={loading} variant="outline" onClick={onClose}>
+            <Button
+              type="button"
+              disabled={isSubmitting}
+              variant="outline"
+              onClick={onClose}
+            >
               Cancel
             </Button>
-            <Button disabled={loading} type="submit">
+            <Button disabled={isSubmitting} type="submit">
               Continue
             </Button>
           </div>

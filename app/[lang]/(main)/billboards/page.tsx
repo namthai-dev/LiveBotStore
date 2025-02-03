@@ -1,7 +1,7 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { billboard } from '@/features/billboard/api';
 import { useUser } from '@stackframe/stack';
+import { getBillboardsByStoreId } from '@/features/billboard/action';
 
 import { Plus } from 'lucide-react';
 
@@ -16,11 +16,16 @@ import { useBillboard } from '@/features/billboard/store';
 export default function Page() {
   const user = useUser();
   const { onOpen } = useBillboard();
+
   const teamId = user?.selectedTeam?.id || '';
 
-  const { data: billboards } = useQuery(
-    billboard.query.getStoreByRefId(teamId),
-  );
+  const { data: billboards } = useQuery({
+    queryKey: ['billboards', teamId],
+    queryFn: async () => {
+      return await getBillboardsByStoreId(teamId);
+    },
+    enabled: !!teamId,
+  });
 
   const handleAdd = () => {
     onOpen();

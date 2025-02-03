@@ -11,12 +11,18 @@ import {
 } from '@/components/ui/alert-dialog';
 
 interface ConfirmModalProps {
-  children: React.ReactNode;
+  isOpen?: boolean;
+  onClose?: () => void;
+  asChild?: boolean;
+  children?: React.ReactNode;
   onConfirm: () => void;
 }
 export default function ConfirmModal({
+  isOpen,
+  onClose,
   children,
   onConfirm,
+  asChild = false,
 }: ConfirmModalProps) {
   const handleConfirm = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -25,8 +31,13 @@ export default function ConfirmModal({
     onConfirm();
   };
   return (
-    <AlertDialog>
-      <AlertDialogTrigger onClick={e => e.stopPropagation()} asChild>
+    <AlertDialog open={isOpen}>
+      <AlertDialogTrigger
+        onClick={e => {
+          e.stopPropagation();
+        }}
+        asChild={asChild}
+      >
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -38,7 +49,13 @@ export default function ConfirmModal({
         </AlertDialogHeader>
 
         <AlertDialogHeader>
-          <AlertDialogCancel onClick={e => e.stopPropagation()}>
+          <AlertDialogCancel
+            onClick={e => {
+              e.stopPropagation();
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              onClose && onClose();
+            }}
+          >
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction onClick={handleConfirm}>Confirm</AlertDialogAction>
