@@ -47,7 +47,7 @@ export default function Page() {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={billboards} />
+      <DataTable columns={columns} data={billboards} entity="label" />
       <Heading title="API" description="API calls for billboards" />
       <Separator />
       <ApiList entityIdName="billboardId" entityName="billboards" />

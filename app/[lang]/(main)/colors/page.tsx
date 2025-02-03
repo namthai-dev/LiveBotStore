@@ -2,8 +2,8 @@
 import { useUser } from '@stackframe/stack';
 import { useQuery } from '@tanstack/react-query';
 
-import { color } from '@/features/color/api';
 import { useColor } from '@/features/color/store';
+import { getColorsByStoreId } from '@/features/color/action';
 
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
@@ -18,7 +18,13 @@ export default function Page() {
   const user = useUser();
   const teamId = user?.selectedTeam?.id || '';
 
-  const { data: colors } = useQuery(color.query.getStoreByRefId(teamId));
+  const { data: colors } = useQuery({
+    queryKey: ['colors', teamId],
+    queryFn: async () => {
+      return await getColorsByStoreId(teamId);
+    },
+    enabled: !!teamId,
+  });
 
   const handleAdd = () => {
     onOpen();
@@ -40,7 +46,7 @@ export default function Page() {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={colors} />
+      <DataTable columns={columns} data={colors} entity="name" />
       <Heading title="API" description="API calls for colors" />
       <Separator />
       <ApiList entityIdName="color" entityName="colors" />

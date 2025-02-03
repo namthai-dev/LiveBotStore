@@ -2,8 +2,8 @@
 import { useUser } from '@stackframe/stack';
 import { useQuery } from '@tanstack/react-query';
 
-import { category } from '@/features/category/api';
 import { useCategory } from '@/features/category/store';
+import { getCategoriesByStoreId } from '@/features/category/action';
 
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
@@ -16,9 +16,16 @@ import { Plus } from 'lucide-react';
 export default function Page() {
   const { onOpen } = useCategory();
   const user = useUser();
+
   const teamId = user?.selectedTeam?.id || '';
 
-  const { data: categories } = useQuery(category.query.getStoreByRefId(teamId));
+  const { data: categories } = useQuery({
+    queryKey: ['categories', teamId],
+    queryFn: async () => {
+      return await getCategoriesByStoreId(teamId);
+    },
+    enabled: !!teamId,
+  });
 
   const handleAdd = () => {
     onOpen();
@@ -40,7 +47,7 @@ export default function Page() {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={categories} />
+      <DataTable columns={columns} data={categories} entity="name" />
       <Heading title="API" description="API calls for categories" />
       <Separator />
       <ApiList entityIdName="categoryId" entityName="categories" />

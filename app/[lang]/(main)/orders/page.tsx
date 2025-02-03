@@ -3,7 +3,7 @@ import { useUser } from '@stackframe/stack';
 import { useQuery } from '@tanstack/react-query';
 
 import { useOrder } from '@/features/order/store';
-import { order } from '@/features/order/api';
+import { getOrdersByStoreId } from '@/features/order/action';
 
 import { columns } from './_components/columns';
 import ApiList from '@/components/api-list';
@@ -18,7 +18,13 @@ export default function Page() {
   const user = useUser();
   const teamId = user?.selectedTeam?.id || '';
 
-  const { data: orders } = useQuery(order.query.getStoreByRefId(teamId));
+  const { data: orders } = useQuery({
+    queryKey: ['orders', teamId],
+    queryFn: async () => {
+      return await getOrdersByStoreId(teamId);
+    },
+    enabled: !!teamId,
+  });
 
   const handleAdd = () => {
     onOpen();
@@ -40,7 +46,7 @@ export default function Page() {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={orders} />
+      <DataTable columns={columns} data={orders} entity="phone" />
       <Heading title="API" description="API calls for orders" />
       <Separator />
       <ApiList entityIdName="orderId" entityName="orders" />
