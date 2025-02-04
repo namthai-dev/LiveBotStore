@@ -147,8 +147,8 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
               className="h-full w-full rounded-md object-cover"
               src={imageUrl}
               alt={acceptedFiles[0]?.name ?? 'image'}
-              width={0}
-              height={0}
+              width={width}
+              height={height}
             />
           ) : (
             // Upload Icon

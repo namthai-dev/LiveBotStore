@@ -6,6 +6,7 @@ import BillboardModal from './modals/billboard-modal';
 import CategoryModal from './modals/category-modal';
 import SizeModal from './modals/size-modal';
 import ColorModal from './modals/color-modal';
+import ProductModal from './modals/product-modal';
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -23,6 +24,7 @@ export const ModalProvider = () => {
       <CategoryModal />
       <SizeModal />
       <ColorModal />
+      <ProductModal />
     </>
   );
 };

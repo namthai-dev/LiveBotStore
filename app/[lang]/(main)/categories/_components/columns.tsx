@@ -8,7 +8,7 @@ export type ColumnType = {
   createdAt: Date;
   updatedAt: Date;
   billboardId: string;
-  billboard: {
+  billboard?: {
     label: string;
   };
 };
@@ -26,9 +26,10 @@ export const columns: ColumnDef<ColumnType>[] = [
     header: 'Billboard',
     size: 50,
     cell(props) {
+      const item = props.row.original;
       return (
         <div className="w-fit truncate rounded-lg bg-secondary px-2 py-1">
-          {props.row.original.billboard.label}
+          {item.billboard?.label ?? item.billboardId}
         </div>
       );
     },
