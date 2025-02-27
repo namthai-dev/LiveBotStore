@@ -15,7 +15,12 @@ export default function Settings() {
             After uploading your own products, you need to use the store ID
             below to host website for your customer
           </p>
-          <span>Store ID:</span> <code>{user?.selectedTeam?.id}</code>
+          <span>Store ID:</span>{' '}
+          <code className="font-bold">{user?.selectedTeam?.id}</code>
+          <p>
+            Please provide your store id to this email address:
+            nam.thai.vi@outlook.com
+          </p>
         </AlertDescription>
       </Alert>
     </div>
