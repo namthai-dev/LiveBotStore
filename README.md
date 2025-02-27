@@ -6,6 +6,8 @@ ID, which can be used to host the store using the LiveBotStore-Client
 repository. Additionally, LiveBotStore features a chatbot powered by artificial
 intelligence (AI) to enhance the customer experience.
 
+Live demo: https://livebotstore-dashboard.vercel.app/
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -45,3 +47,12 @@ environment variables.
 - **Store Hosting:**
   - Use the store ID to host the store using the LiveBotStore-Client repository.
   - Customize the store's appearance and functionality.
+
+## Screenshots
+
+![Screen Shot 2025-02-27 at 23 50 34 PM](https://github.com/user-attachments/assets/be846a8b-ecd6-422f-b41b-57d807ac3cfe)
+
+![Screen Shot 2025-02-27 at 23 55 22 PM](https://github.com/user-attachments/assets/28104ecc-872a-4ffa-82b5-b6c872908e76)
+
+![Screen Shot 2025-02-27 at 23 57 35 PM](https://github.com/user-attachments/assets/4fe86b41-f2b2-4aab-a70d-588544f8c44a)
+
