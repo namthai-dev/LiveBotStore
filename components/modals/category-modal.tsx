@@ -130,7 +130,7 @@ export default function CategoryModal() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Name" {...field} value={field.value} />
+                  <Input placeholder="Top" {...field} value={field.value} />
                 </FormControl>
               </FormItem>
             )}

@@ -112,7 +112,7 @@ export default function ColorModal() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Name" {...field} value={field.value} />
+                  <Input placeholder="Red" {...field} value={field.value} />
                 </FormControl>
               </FormItem>
             )}
@@ -124,7 +124,7 @@ export default function ColorModal() {
               <FormItem>
                 <FormLabel>Value</FormLabel>
                 <FormControl>
-                  <Input placeholder="Value" {...field} value={field.value} />
+                  <Input placeholder="#FF0000" {...field} value={field.value} />
                 </FormControl>
               </FormItem>
             )}

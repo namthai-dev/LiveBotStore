@@ -218,7 +218,7 @@ export default function ProductModal() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Name" {...field} value={field.value} />
+                  <Input placeholder="T-shirt" {...field} value={field.value} />
                 </FormControl>
               </FormItem>
             )}
@@ -232,7 +232,7 @@ export default function ProductModal() {
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder="Price"
+                    placeholder="10"
                     {...field}
                     value={field.value}
                     onChange={e => field.onChange(Number(e.target.value))}

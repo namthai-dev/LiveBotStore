@@ -165,11 +165,7 @@ export default function BillboardModal() {
               <FormItem>
                 <FormLabel>Label</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Label name"
-                    {...field}
-                    value={field.value}
-                  />
+                  <Input placeholder="News" {...field} value={field.value} />
                 </FormControl>
               </FormItem>
             )}
