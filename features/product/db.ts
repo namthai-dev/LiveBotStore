@@ -69,3 +69,7 @@ export async function update({
     },
   });
 }
+
+export async function getProductById(id: string) {
+  return await prisma.product.findFirst({ where: { id } });
+}

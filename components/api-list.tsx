@@ -27,7 +27,7 @@ export default function ApiList({ entityName, entityIdName }: ApiListProps) {
         variant="public"
         description={`${baseUrl}/${entityName}/{${entityIdName}}`}
       />
-      <ApiItem
+      {/* <ApiItem
         title="POST"
         variant="admin"
         description={`${baseUrl}/${entityName}`}
@@ -41,7 +41,7 @@ export default function ApiList({ entityName, entityIdName }: ApiListProps) {
         title="DELETE"
         variant="admin"
         description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-      />
+      /> */}
     </>
   );
 }

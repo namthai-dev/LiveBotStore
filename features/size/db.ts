@@ -26,3 +26,7 @@ export async function update({ id, name, value }: UpdateSizeParams) {
 export async function remove(id: string) {
   return await prisma.size.delete({ where: { id } });
 }
+
+export async function getSizeById(id: string) {
+  return await prisma.size.findFirst({ where: { id } });
+}

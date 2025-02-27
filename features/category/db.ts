@@ -39,3 +39,7 @@ export async function update({ id, billboardId, name }: UpdateCatergoryParams) {
 export async function remove(id: string) {
   return await prisma.category.delete({ where: { id } });
 }
+
+export async function getCategoryById(id: string) {
+  return await prisma.category.findFirst({ where: { id } });
+}

@@ -26,3 +26,7 @@ export async function update({ id, name, value }: UpdateColorParams) {
 export async function remove(id: string) {
   return await prisma.color.delete({ where: { id } });
 }
+
+export async function getColorById(id: string) {
+  return await prisma.color.findFirst({ where: { id } });
+}

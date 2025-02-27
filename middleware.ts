@@ -6,7 +6,10 @@ import { localizationMiddleware } from './features/internationalization/localiza
 export const config = { matcher: ['/((?!api|_next|.*.svg$).*)'] };
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/handler')) {
+  if (
+    request.nextUrl.pathname.startsWith('/handler') ||
+    request.nextUrl.pathname.startsWith('/api')
+  ) {
     return NextResponse.next();
   }
   return localizationMiddleware(request);
