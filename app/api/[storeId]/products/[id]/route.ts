@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getProductById } from '@/features/product/db';
+import prisma from '@/lib/prisma';
 
 export async function GET(
   req: Request,
@@ -11,7 +11,17 @@ export async function GET(
       return new NextResponse('Product id is required', { status: 400 });
     }
 
-    const product = await getProductById(id);
+    const product = await prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        images: true,
+        category: true,
+        size: true,
+        color: true,
+      },
+    });
 
     return NextResponse.json(product);
   } catch (error) {

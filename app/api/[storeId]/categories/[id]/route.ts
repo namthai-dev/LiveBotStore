@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getCategoryById } from '@/features/category/db';
+import prisma from '@/lib/prisma';
 
 export async function GET(
   req: Request,
@@ -11,7 +11,14 @@ export async function GET(
       return new NextResponse('Category id is required', { status: 400 });
     }
 
-    const category = await getCategoryById(id);
+    const category = await prisma.category.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        billboard: true,
+      },
+    });
 
     return NextResponse.json(category);
   } catch (error) {
