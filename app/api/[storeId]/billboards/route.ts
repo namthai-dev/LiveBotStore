@@ -3,7 +3,7 @@ import { getBillboardsByStoreId } from '@/features/billboard/action';
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string } },
+  { params }: { params: Promise<{ storeId: string }> },
 ) {
   const { storeId } = await params;
   try {

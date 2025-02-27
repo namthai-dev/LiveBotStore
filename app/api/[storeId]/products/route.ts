@@ -4,7 +4,7 @@ import { getStoreByRefId } from '@/features/store/db';
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string } },
+  { params }: { params: Promise<{ storeId: string }> },
 ) {
   const { searchParams } = new URL(req.url);
   const categoryId = searchParams.get('categoryId') || undefined;
